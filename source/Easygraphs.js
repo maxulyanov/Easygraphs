@@ -1,6 +1,6 @@
 /*
  * Easygraphs: Javascript library for building flexible graphs for your website
- * 0.2.3
+ * 0.2.4
  *
  * By Max Ulyanov
  * Source: https://github.com/M-Ulyanov/Easygraphs
@@ -37,7 +37,7 @@
                 color: '#DADADA'
             },
             text: {
-                color: '#FFF',
+                color: '#222',
                 size: 12
             },
             grid: {
