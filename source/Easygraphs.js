@@ -37,7 +37,7 @@
                 color: '#DADADA'
             },
             text: {
-                color: '#FFF',
+                color: '#222',
                 size: 12
             },
             grid: {
