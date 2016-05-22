@@ -1,0 +1,28 @@
+{
+  "name": "easy-graphs",
+  "version": "0.2.3",
+  "description": "Javascript library for building flexible graphs for your website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M-Ulyanov/Easygraphs.git"
+  },
+  "keywords": [
+    "javascript graphs",
+    "javascript charts",
+    "web charts",
+    "web graphs",
+    "beautiful charts",
+    "library charts",
+    "js charts"
+  ],
+  "author": "Max Ulyanov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/M-Ulyanov/Easygraphs/issues"
+  },
+  "homepage": "https://github.com/M-Ulyanov/Easygraphs#readme"
+}
