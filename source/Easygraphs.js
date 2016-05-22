@@ -11,8 +11,7 @@
 'use strict';
 
 
-;
-(function () {
+;(function () {
 
 
     var defaultOptions = {
