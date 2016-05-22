@@ -10,7 +10,6 @@
 
 'use strict';
 
-
 ;(function () {
 
 
