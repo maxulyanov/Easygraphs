@@ -1,6 +1,6 @@
 /*
- * Easygraphs: javaScript library for creating easy graphs
- * 0.1.1
+ * Easygraphs: Javascript library for building flexible graphs for your website
+ * 0.2.3
  *
  * By Max Ulyanov
  * Source: https://github.com/M-Ulyanov/Easygraphs
@@ -19,7 +19,7 @@
         container: null,
         width: 1024,
         height: 400,
-        speedRenderingFragment: 50,
+        speedRenderingFragment: 40,
         padding: {
             top: 20,
             left: 40,
@@ -31,21 +31,21 @@
             labels: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18],
             border: {
                 width: 1,
-                color: '#BFC2C7'
+                color: '#DADADA'
             },
             segment: {
                 width: 1,
                 height: 10,
-                color: '#BFC2C7'
+                color: '#DADADA'
             },
             text: {
-                color: '#222',
+                color: '#FFF',
                 size: 12
             },
             grid: {
                 show: true,
                 width: 1,
-                color: '#BFC2C7'
+                color: '#DADADA'
             }
         },
         yAxis: {
@@ -60,12 +60,12 @@
                 count: 5,
                 width: 10,
                 height: 1,
-                color: '#BFC2C7'
+                color: '#DADADA'
             },
             border: {
                 show: true,
                 width: 1,
-                color: '#BFC2C7'
+                color: '#DADADA'
             },
             text: {
                 show: true,
@@ -77,13 +77,14 @@
             grid: {
                 show: true,
                 width: 1,
-                color: '#BFC2C7'
+                color: '#DADADA'
             }
         },
         legends: {
             show: true,
             width: 20,
             height: 4,
+            offsetY: 0,
             color: '#222',
             size: 12
         },
@@ -91,6 +92,8 @@
             show: true,
             color: '#FFF',
             background: false,
+            borderWidth: 1,
+            borderColor: false,
             template: '{{value}}',
             size: 12,
             width: 120,
@@ -101,8 +104,8 @@
         },
         dotsOptions: {
             show: true,
-            width: 8,
-            height: 8,
+            width: 6,
+            height: 6,
             color: '#7CB5EC',
             borderColor: '#7CB5EC',
             borderWidth: 1,
@@ -136,7 +139,6 @@
     function Easygraphs(options) {
         this.options = {};
         utils.extend(this.options, [defaultOptions, options]);
-        this.buildComponents = null;
     }
 
 
@@ -145,11 +147,11 @@
      * @returns {boolean}
      */
     Easygraphs.prototype.render = function () {
-        this.buildComponents = new EasygraphsBuildComponents(this.options);
+        var buildComponents = new EasygraphsBuildComponents(this.options);
 
         var container = this.options.container;
         if (container != null) {
-            this.buildComponents.SVG(container);
+            buildComponents.SVG(container);
         }
         else {
             console.error('Container not found!');
@@ -188,7 +190,8 @@
         var svg = utils.createSvgElement('svg', {
             width: width,
             height: height,
-            viewBox: '0 0 ' + width + ' ' + height
+            viewBox: '0 0 ' + width + ' ' + height,
+            style: 'display:block'
         });
         container.appendChild(svg);
 
@@ -218,7 +221,9 @@
             show: this._options.dotsOptions.show,
             width: this._options.dotsOptions.width
         });
-        this._instanceTooltip.create();
+        if(this._options.tooltip.show) {
+            this._instanceTooltip.create();
+        }
 
         var callbackEnd = this._options.callbacks.createInstance;
         if (callbackEnd != null && typeof callbackEnd === 'function') {
@@ -281,7 +286,7 @@
                 grid = utils.createSvgElement('path', {
                     d: 'M ' + (this._coordsX[j] + 0.5) + ' ' + paddingTop + ' L ' + (this._coordsX[j] + 0.5) + ' ' + heightWithPaddingtop,
                     fill: 'none',
-                    stroke: gridY.color,
+                    stroke: gridX.color,
                     'stroke-width': gridY.width
                 });
 
@@ -346,7 +351,7 @@
                 return;
             }
 
-            if (item.line.show === true || (lineOptions.show === true && item.line.show == null)) {
+            if ((item.line && item.line.show === true) || (lineOptions.show === true && item.line.show == null)) {
                 var line = utils.createSvgElement('path', {
                     d: d,
                     fill: 'none',
@@ -370,7 +375,7 @@
             }
 
 
-            if (item.dots.show === true || (dotsOptions.show === true && item.dots.show == null)) {
+            if ((item.dots && item.dots.show === true) || (dotsOptions.show === true && item.dots.show == null)) {
                 var pointsGroup = utils.createSvgElement('g', {
                     'class': 'easy-graphs-points'
                 });
@@ -410,8 +415,7 @@
                         else {
                             x = self._options.width / (values.length - 1) * i + paddingLeft;
                         }
-
-                        y = height / 100 * (100 * value / self._upperPoint);
+                        y = height / 100 * (100 * value / (self._upperPoint));
                         y = height - y + paddingTop;
 
                         if (i === 0) {
@@ -427,7 +431,7 @@
 
 
                         //
-                        if (item.line.show === true || (lineOptions.show === true && item.line.show == null)) {
+                        if ((item.line && item.line.show === true) || (lineOptions.show === true && item.line.show == null)) {
                             line.setAttribute('d', d);
 
                             if (typeof (item.line.fill) === 'string') {
@@ -446,7 +450,7 @@
 
 
                         //
-                        if (item.dots.show === true || (dotsOptions.show === true && item.dots.show == null)) {
+                        if ((item.dots && item.dots.show === true) || (dotsOptions.show === true && item.dots.show == null)) {
                             var dotY = y - dotsOptions.height / 2;
                             if (dotY < 0) {
                                 dotY = 0;
@@ -517,10 +521,24 @@
                 'class': 'easy-graphs-legend-item',
                 transform: translateItem
             });
+
+            var strokeColor;
+            if(data[i].line && data[i].line.color) {
+                strokeColor = data[i].line.color;
+            }
+            else if(data[i].dots) {
+                if(data[i].dots.color) {
+                    strokeColor = data[i].dots.color;
+                }
+                else if(data[i].dots.borderColor) {
+                    strokeColor = data[i].dots.borderColor;
+                }
+            }
+
             legendLine = utils.createSvgElement('path', {
                 fill: 'none',
-                d: 'M 0 0 L ' + legends.width + ' 0',
-                stroke: data[i].line.color,
+                d: 'M 0 ' + (legends.offsetY + 0.5) + ' L ' + legends.width + ' ' + (legends.offsetY + 0.5),
+                stroke: strokeColor,
                 'stroke-width': legends.height
             });
             legendItem.appendChild(legendLine);
@@ -789,7 +807,7 @@
         var stringArray = stringValue.split('.');
         var floatValue = stringArray[1];
 
-        if (floatValue != null) {
+        if (floatValue != null && 1 > floatValue) {
             while (true) {
                 if (floatValue % 5 === 0) {
                     break;
@@ -800,13 +818,17 @@
             result = parseFloat(stringArray.join('.'));
         }
         else {
-            var length = stringValue.length;
+            var maxValue = parseInt(maxValue);
+            var length = String(maxValue).length;
             var coef = 5;
             var zero = 0;
             if (length > 2) {
                 zero = Math.floor((length - 1) / 2);
                 for (var l = 0; l < zero; l++) {
                     coef += '0';
+                    if(l > 0) {
+                        coef *= 2;
+                    }
                 }
             }
             while (true) {
@@ -830,7 +852,7 @@
     EasygraphsBuildComponents.prototype._calcCoordsY = function () {
         var count = this._options.yAxis.segment.count;
         var outputCallback = this._options.yAxis.text.outputCallback;
-        var coef = this._upperPoint / count;
+        var coef = (this._upperPoint) / count;
         var total = this._upperPoint;
         var procent = 0;
         for (var i = 0; i < count; i++) {
@@ -911,10 +933,14 @@
             if (dot) {
                 dot.setAttribute('fill', color);
                 if (self._instanceTooltip.isCreated) {
+                    var style = 'fill:' + (self._options.tooltip.background || color) +
+                                ';color:' + self._options.tooltip.color +
+                                ';stroke-width:' + self._options.tooltip.borderWidth +
+                                ';stroke:' + (self._options.tooltip.borderColor || color);
                     self._instanceTooltip.show({
                         template: self._options.tooltip.template,
                         rect: dot.getBoundingClientRect(),
-                        color: self._options.tooltip.background || color,
+                        style: style,
                         value: element.getAttribute('data-value'),
                         category: element.getAttribute('data-category')
                     });
@@ -1043,7 +1069,7 @@
             rx: this._options.rx,
             ry: this._options.ry,
             visibility: 'hidden',
-            style: 'fill:' + this._options.color + ';'
+            style: 'fill:' + this._options.color
         });
         tooltipGroup.appendChild(this._tooltipBg);
 
@@ -1090,7 +1116,7 @@
             y: coords.y,
             width: this._options.width,
             visibility: 'visible',
-            style: 'fill: ' + data.color + ';'
+            style: data.style
         });
 
         return this;
@@ -1220,7 +1246,7 @@
                     }
                 }).join('');
                 if (property in objectCallback) {
-                    return encodeURIComponent(objectCallback[property]);
+                    return objectCallback[property];
                 }
                 else {
                     return '';
