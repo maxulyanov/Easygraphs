@@ -77,13 +77,13 @@ function ready() {
             },
             title: {
                 text: 'May visitors'
-            }
-        },
-        xAxis: {
-            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+            },
             grid: {
                 show: false
             }
+        },
+        xAxis: {
+            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
         },
         data: [
             {
@@ -143,9 +143,6 @@ function ready() {
             show: false
         },
         yAxis: {
-            grid: {
-                dasharray: '#D7D7D7'
-            },
             text: {
                 toFixed: 0
             },
@@ -155,10 +152,7 @@ function ready() {
             border: 0
         },
         xAxis: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            grid: {
-                show: false
-            }
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
         legends: {
             show: false
@@ -195,20 +189,20 @@ function ready() {
             widthAuto: true
         },
         yAxis: {
-            grid: {
-                dasharray: '1%'
-            },
             title: {
                 text: 'Temperature (°C)'
             },
             text: {
                 toFixed: 0
+            },
+            grid: {
+                show: false
             }
         },
         xAxis: {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             grid: {
-                show: false
+                dasharray: '1%'
             }
         },
         legends: {
@@ -283,8 +277,7 @@ function ready() {
                 color: '#D6D6D6'
             },
             grid: {
-                dasharray: '1%',
-                color: '#43484C'
+                show: false
             },
             border: {
                 color: '#43484C'
@@ -300,7 +293,8 @@ function ready() {
             },
             labels: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16'],
             grid: {
-               show: false
+                dasharray: '1%',
+                color: '#43484C'
             },
             segment: {
                 width: 1,

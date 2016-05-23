@@ -22,7 +22,7 @@
 
 <div class="container-header">
   <div class="container-page">
-    <a href="https://github.com/M-Ulyanov/Easygraphs" target="_blank" class="b-lib-name">Easygraphs <span class="b-lib-version">0.2.4</span></a>
+    <a href="https://github.com/M-Ulyanov/Easygraphs" target="_blank" class="b-lib-name">Easygraphs <span class="b-lib-version">0.2.5</span></a>
   </div>
 </div>
 
@@ -118,13 +118,13 @@ eg1.render();</code></pre>
     },
     title: {
       text: 'May visitors'
+    },
+    grid: {
+      show: false
     }
   },
   xAxis: {
     labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
-    grid: {
-      show: false
-    }
   },
   data: [
     {
@@ -189,22 +189,16 @@ eg2.render();</code></pre>
     show: false
   },
   yAxis: {
-    grid: {
-      dasharray: '#D7D7D7'
-    },
     text: {
       toFixed: 0
     },
     title: {
       text: 'Number likes'
     },
-    border: 0,
+    border: 0
   },
   xAxis: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    grid: {
-      show: false
-    }
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   },
   legends: {
     show: false
@@ -251,7 +245,7 @@ eg3.render();
   },
   yAxis: {
     grid: {
-      dasharray: '1%'
+      show: false,
     },
     title: {
       text: 'Temperature (°C)'
@@ -263,7 +257,7 @@ eg3.render();
   xAxis: {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     grid: {
-      show: false
+      dasharray: '1%'
     }
   },
   legends: {
@@ -348,8 +342,7 @@ eg4.render();
       color: '#D6D6D6'
     },
     grid: {
-      dasharray: '1%',
-      color: '#43484C'
+      show: false
     },
     border: {
       color: '#43484C'
@@ -365,7 +358,8 @@ eg4.render();
     },
     labels: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16'],
     grid: {
-      show: false
+      dasharray: '1%',
+      color: '#43484C'
     },
     segment: {
       width: 1,

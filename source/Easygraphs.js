@@ -1,6 +1,6 @@
 /*
  * Easygraphs: Javascript library for building flexible graphs for your website
- * 0.2.4
+ * 0.2.5
  *
  * By Max Ulyanov
  * Source: https://github.com/M-Ulyanov/Easygraphs
@@ -20,7 +20,7 @@
         speedRenderingFragment: 40,
         padding: {
             top: 20,
-            left: 40,
+            left: 60,
             bottom: 60,
             right: 20
         },
@@ -28,10 +28,12 @@
         xAxis: {
             labels: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18],
             border: {
+                show: true,
                 width: 1,
                 color: '#DADADA'
             },
             segment: {
+                show: true,
                 width: 1,
                 height: 10,
                 color: '#DADADA'
@@ -118,7 +120,17 @@
             fill: false,
             hoverEffect: true
         },
-        data: null,
+        data: [{
+            name: 'Test data',
+            dots: {
+                color: 'rgb(31, 118, 185)'
+            },
+            line: {
+                color: 'rgb(31, 118, 185)',
+                fill: 'rgba(31, 118, 185, 0.3)'
+            },
+            values: [1, 5, 7, 9, 11, 15, 22, 14, 10, 1, 2]
+        }],
         callbacks: {
             createItem: null,
             createInstance: null
@@ -252,11 +264,11 @@
             gridGroupY = utils.createSvgElement('g', {
                 'class': 'easy-graphs-grid-y'
             });
-            for (var i = 0; i < this._coordsY.length - 1; i++) {
+            for (var i = 0; i < this._coordsX.length; i++) {
 
                 // Create grid item
                 grid = utils.createSvgElement('path', {
-                    d: 'M ' + (paddingLeft) + ' ' + this._coordsY[i] + ' L ' + (paddingLeft + this._options.width) + ' ' + this._coordsY[i],
+                    d: 'M ' + (this._coordsX[i] + 0.5) + ' ' + paddingTop + ' L ' + (this._coordsX[i] + 0.5) + ' ' + heightWithPaddingtop,
                     fill: 'none',
                     stroke: gridY.color,
                     'stroke-width': gridY.width
@@ -278,11 +290,12 @@
             gridGroupX = utils.createSvgElement('g', {
                 'class': 'easy-graphs-grid-x'
             });
-            for (var j = 1; j < this._coordsX.length; j++) {
+            for (var j = 0; j < this._coordsY.length - 1; j++) {
+
 
                 // Create grid item
                 grid = utils.createSvgElement('path', {
-                    d: 'M ' + (this._coordsX[j] + 0.5) + ' ' + paddingTop + ' L ' + (this._coordsX[j] + 0.5) + ' ' + heightWithPaddingtop,
+                    d: 'M ' + (paddingLeft) + ' ' + this._coordsY[j] + ' L ' + (paddingLeft + this._options.width) + ' ' + this._coordsY[j],
                     fill: 'none',
                     stroke: gridX.color,
                     'stroke-width': gridY.width
@@ -638,19 +651,21 @@
 
 
         // Create line
-        var line = utils.createSvgElement('path', {
-            fill: 'none',
-            d: 'M ' + paddingLeft + ' ' + (heightWithPaddingtop + 0.5) + ' L '
-            + (this._options.width + paddingLeft) + ' ' + (heightWithPaddingtop + 0.5),
-            stroke: xAxis.border.color,
-            'stroke-width': xAxis.border.width
-        });
+        if(xAxis.border.show) {
+            var line = utils.createSvgElement('path', {
+                fill: 'none',
+                d: 'M ' + paddingLeft + ' ' + (heightWithPaddingtop + 0.5) + ' L '
+                + (this._options.width + paddingLeft) + ' ' + (heightWithPaddingtop + 0.5),
+                stroke: xAxis.border.color,
+                'stroke-width': xAxis.border.width
+            });
 
-        if (xAxis.border.dasharray) {
-            line.setAttribute('stroke-dasharray', xAxis.border.dasharray);
+            if (xAxis.border.dasharray) {
+                line.setAttribute('stroke-dasharray', xAxis.border.dasharray);
+            }
+
+            componentsXGroup.appendChild(line);
         }
-
-        componentsXGroup.appendChild(line);
 
 
         //
@@ -667,18 +682,23 @@
             label.textContent = labels[i];
             labelsGroup.appendChild(label);
 
-            // Create segment
-            segment = utils.createSvgElement('rect', {
-                x: this._coordsX[i],
-                y: heightWithPaddingtop,
-                width: xAxis.segment.width,
-                height: xAxis.segment.height,
-                fill: xAxis.segment.color
-            });
-            segmentGroup.appendChild(segment);
+            if(xAxis.segment.show) {
+                // Create segment
+                segment = utils.createSvgElement('rect', {
+                    x: this._coordsX[i],
+                    y: heightWithPaddingtop,
+                    width: xAxis.segment.width,
+                    height: xAxis.segment.height,
+                    fill: xAxis.segment.color
+                });
+                segmentGroup.appendChild(segment);
+            }
         }
 
-        componentsXGroup.appendChild(segmentGroup);
+        if(xAxis.segment.show) {
+            componentsXGroup.appendChild(segmentGroup);
+        }
+
         componentsXGroup.appendChild(labelsGroup);
         this._svg.appendChild(componentsXGroup);
 
