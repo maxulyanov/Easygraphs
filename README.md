@@ -1,6 +1,6 @@
 # Easygraphs
 Javascript library for building flexible graphs for your website
-
+[![](http://m-ulyanov.github.io/Easygraphs/easy-graphs.jpg)](http://m-ulyanov.github.io/Easygraphs/)
 
 ##Getting started
 1. `npm install easy-graphs` your project or download arhive
