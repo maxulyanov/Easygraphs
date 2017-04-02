@@ -1,6 +1,5 @@
 /*
  * Easygraphs: Javascript library for building flexible graphs for your website
- * 0.2.5
  *
  * By Max Ulyanov
  * Source: https://github.com/M-Ulyanov/Easygraphs
@@ -10,7 +9,7 @@
 
 'use strict';
 
-;(function () {
+(function (root) {
 
 
     var defaultOptions = {
@@ -1313,7 +1312,14 @@
     }
 
 
-    window.Easygraphs = Easygraphs;
+    if (typeof define === 'function' && define.amd) {
+        define('Easygraphs', [], function () {
+            return Easygraphs;
+        });
+    }
+    else {
+        root.Easygraphs = Easygraphs;
+    }
 
 
-})();
+})(this);
