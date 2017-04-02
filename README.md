@@ -1,18 +1,31 @@
-# Easygraphs
-Javascript library for building flexible graphs for your website:<br>
+Easygraphs
+[![npm](https://img.shields.io/npm/dt/easy-graphs.svg)](https://www.npmjs.com/package/image-comparison)
+[![npm](https://img.shields.io/npm/v/easy-graphs.svg)](https://www.npmjs.com/package/image-comparison)
+===============
+Javascript library for building flexible graphs for your website
 
-[![](http://m-ulyanov.github.io/Easygraphs/easy-graphs.jpg)](http://m-ulyanov.github.io/Easygraphs/)
+## Install
+```bash
+$ npm install easy-graphs --save
+```
 
-##Getting started
-1. `npm install easy-graphs` your project or download arhive
-2. Include Easygraphs.js
-3. Create instance Easygraphs with your options
-5. Draw Easygraphs at the right time
-```html
-<script>
-   var eq = new Easygraphs(object options);
-   eq.render();
-</script>
+## Connection
+### JavaScript
+#### CommonJS
+```js
+import { Easygraphs } from 'easy-graphs';
+```
+#### AMD
+```js
+require(['Easygraphs'], function (Easygraphs) {
+   // Usage
+});
+```
+
+## Usage
+```js
+var eg = new Easygraphs(object options);
+eg.render();
 ```
 
 ## Options
@@ -142,12 +155,12 @@ var defaultOptions = {
     };
 ```
 
-##Callbacks
+## Callbacks
 `createItem` - successful creation of the object array data<br>
 `createInstance` - successful creation all object in data
 
-##Browsers support
+## Browsers support
 Chrome, FF, Opera, Safari, IE9+
 
-##Example
+## Example
 See example - <a href="http://m-ulyanov.github.io/Easygraphs/">Easygraphs</a>
