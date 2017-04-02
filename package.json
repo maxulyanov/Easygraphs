@@ -1,6 +1,6 @@
 {
   "name": "easy-graphs",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Javascript library for building flexible graphs for your website",
   "main": "./src/Easygraphs.js",
   "scripts": {
